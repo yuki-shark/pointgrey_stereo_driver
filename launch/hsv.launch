@@ -1,0 +1,67 @@
+<launch>
+  <arg name="gui" default="true" />
+  <arg name="MANAGER" value="color_filter_nodelet_manager" />
+  <arg name="INPUT_LEFT_IMAGE" default="/pointgrey/left/image_color" />
+  <arg name="INPUT_RIGHT_IMAGE" default="/pointgrey/right/image_color" />
+  <arg name="INPUT_CAMERA_INFO" default="/camera_remote/rgb/camera_info" />
+
+  <node name="$(arg MANAGER)"
+        pkg="nodelet" type="nodelet"
+        args="manager" />
+
+  <include file="$(find opencv_apps)/launch/hsv_color_filter.launch" >
+    <arg name="node_name" value="left_hsv_color_filter" />
+    <arg name="image" value="$(arg INPUT_LEFT_IMAGE)" />
+    <arg name="h_limit_max" value="26" doc="The maximum allowed field value Hue" />
+    <arg name="h_limit_min" value="8" doc="The minimum allowed field value Hue" />
+    <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
+    <arg name="s_limit_min" value="140" doc="The minimum allowed field value Saturation" />
+    <arg name="v_limit_max" value="256" doc="The maximum allowed field value Value" />
+    <arg name="v_limit_min" value="84" doc="The minimum allowed field value Value" />
+    <arg name="debug_view" value="false" />
+  </include>
+
+  <node name="left_erode_mask_image"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_perception/ErodeMaskImage $(arg MANAGER)">
+    <remap from="~input" to="left_hsv_color_filter/image" />
+    <rosparam>
+      method: 0
+      size: 5
+    </rosparam>
+  </node>
+
+  <include file="$(find opencv_apps)/launch/hsv_color_filter.launch" >
+    <arg name="node_name" value="right_hsv_color_filter" />
+    <arg name="image" value="$(arg INPUT_RIGHT_IMAGE)" />
+    <arg name="h_limit_max" value="26" doc="The maximum allowed field value Hue" />
+    <arg name="h_limit_min" value="8" doc="The minimum allowed field value Hue" />
+    <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
+    <arg name="s_limit_min" value="140" doc="The minimum allowed field value Saturation" />
+    <arg name="v_limit_max" value="256" doc="The maximum allowed field value Value" />
+    <arg name="v_limit_min" value="84" doc="The minimum allowed field value Value" />
+    <arg name="debug_view" value="false" />
+  </include>
+
+  <node name="right_erode_mask_image"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_perception/ErodeMaskImage $(arg MANAGER)">
+    <remap from="~input" to="right_hsv_color_filter/image" />
+    <rosparam>
+      method: 0
+      size: 5
+    </rosparam>
+  </node>
+
+  <group if="$(arg gui)">
+    <node name="image_view0"
+          pkg="image_view" type="image_view">
+      <remap from="image" to="left_erode_mask_image/output" />
+    </node>
+    <node name="image_view1"
+          pkg="image_view" type="image_view">
+      <remap from="image" to="right_erode_mask_image/output" />
+    </node>
+  </group>
+
+</launch>

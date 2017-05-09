@@ -1,74 +1,16 @@
 <launch>
-  <!-- master -->
-
-  <!-- <arg name="MANAGER" value="color_filter_nodelet_manager" /> -->
-
-  <!-- <node name="$(arg MANAGER)" -->
-  <!--      pkg="nodelet" type="nodelet" -->
-  <!--      args="manager" /> -->
-
-  <include file="$(find opencv_apps)/launch/hsv_color_filter.launch" >
-    <arg name="node_name" value="left_hsv" />
-    <arg name="image" value="/pointgrey/left/image_rect_color" />
-    <arg name="h_limit_max" value="26" doc="The maximum allowed field value Hue" />
-    <arg name="h_limit_min" value="8" doc="The minimum allowed field value Hue" />
-    <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
-    <arg name="s_limit_min" value="140" doc="The minimum allowed field value Saturation" />
-    <arg name="v_limit_max" value="256" doc="The maximum allowed field value Value" />
-    <arg name="v_limit_min" value="84" doc="The minimum allowed field value Value" />
-  </include>
-
-  <include file="$(find opencv_apps)/launch/hsv_color_filter.launch" >
-    <arg name="node_name" value="right_hsv" />
-    <arg name="image" value="/pointgrey/right/image_rect_color" />
-    <arg name="h_limit_max" value="26" doc="The maximum allowed field value Hue" />
-    <arg name="h_limit_min" value="8" doc="The minimum allowed field value Hue" />
-    <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
-    <arg name="s_limit_min" value="140" doc="The minimum allowed field value Saturation" />
-    <arg name="v_limit_max" value="256" doc="The maximum allowed field value Value" />
-    <arg name="v_limit_min" value="84" doc="The minimum allowed field value Value" />
-  </include>
+  <arg name="gui" default="true" />
 
   <group ns="pointgrey">
-
     <include file="$(find pointgrey_camera_driver)/launch/camera.launch">
       <arg name="camera_name" value="left" />
       <arg name="camera_serial" value="14160053" />
     </include>
 
-    <!-- <node name="erode_mask_image" -->
-    <!--       pkg="nodelet" type="nodelet" -->
-    <!--       args="load jsk_perception/ErodeMaskImage $(arg MANAGER)"> -->
-    <!--   <remap from="~input" to="hsv_color_filter/image" /> -->
-    <!--   <rosparam> -->
-    <!--     method: 0 -->
-    <!--     size: 5 -->
-    <!--   </rosparam> -->
-    <!-- </node> -->
-
-    <node name="left_image" pkg="image_view" type="image_view" >
-      <remap from="image" to="left/image_rect_color" />
-    </node>
-
-
     <include file="$(find pointgrey_camera_driver)/launch/camera.launch">
       <arg name="camera_name" value="right" />
       <arg name="camera_serial" value="14160044" />
     </include>
-
-    <!-- <node name="erode_mask_image" -->
-    <!--       pkg="nodelet" type="nodelet" -->
-    <!--       args="load jsk_perception/ErodeMaskImage $(arg MANAGER)"> -->
-    <!--   <remap from="~input" to="hsv_color_filter/image" /> -->
-    <!--   <rosparam> -->
-    <!--     method: 0 -->
-    <!--     size: 5 -->
-    <!--   </rosparam> -->
-    <!-- </node> -->
-
-    <node name="right_image" pkg="image_view" type="image_view" >
-      <remap from="image" to="right/image_rect_color" />
-    </node>
 
     <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" >
       <!-- <remap from="left/image_raw" to="/left_camera/camera/image_raw" /> -->
@@ -81,7 +23,14 @@
     </node>
   </group>
 
-
+  <group if="$(arg gui)" >
+    <node name="left_image" pkg="image_view" type="image_view" >
+      <remap from="image" to="pointgrey/left/image_color" />
+    </node>
+    <node name="right_image" pkg="image_view" type="image_view" >
+      <remap from="image" to="pointgrey/right/image_color" />
+    </node>
+  </group>
 
   <!-- <node pkg="rviz" type="rviz" name="rviz_stereo" -->
   <!--       args="-d $(find pointgrey_stereo_driver)/config/stereo.rviz" /> -->
