@@ -12,12 +12,12 @@
   <include file="$(find opencv_apps)/launch/hsv_color_filter.launch" >
     <arg name="node_name" value="left_hsv_color_filter" />
     <arg name="image" value="$(arg INPUT_LEFT_IMAGE)" />
-    <arg name="h_limit_max" value="26" doc="The maximum allowed field value Hue" />
-    <arg name="h_limit_min" value="8" doc="The minimum allowed field value Hue" />
+    <arg name="h_limit_max" value="25" doc="The maximum allowed field value Hue" />
+    <arg name="h_limit_min" value="4" doc="The minimum allowed field value Hue" />
     <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
-    <arg name="s_limit_min" value="140" doc="The minimum allowed field value Saturation" />
+    <arg name="s_limit_min" value="145" doc="The minimum allowed field value Saturation" />
     <arg name="v_limit_max" value="256" doc="The maximum allowed field value Value" />
-    <arg name="v_limit_min" value="84" doc="The minimum allowed field value Value" />
+    <arg name="v_limit_min" value="225" doc="The minimum allowed field value Value" />
     <arg name="debug_view" value="false" />
   </include>
 
@@ -27,19 +27,19 @@
     <remap from="~input" to="left_hsv_color_filter/image" />
     <rosparam>
       method: 0
-      size: 5
+      size: 3
     </rosparam>
   </node>
 
   <include file="$(find opencv_apps)/launch/hsv_color_filter.launch" >
     <arg name="node_name" value="right_hsv_color_filter" />
     <arg name="image" value="$(arg INPUT_RIGHT_IMAGE)" />
-    <arg name="h_limit_max" value="26" doc="The maximum allowed field value Hue" />
-    <arg name="h_limit_min" value="8" doc="The minimum allowed field value Hue" />
+    <arg name="h_limit_max" value="29" doc="The maximum allowed field value Hue" />
+    <arg name="h_limit_min" value="3" doc="The minimum allowed field value Hue" />
     <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
-    <arg name="s_limit_min" value="140" doc="The minimum allowed field value Saturation" />
+    <arg name="s_limit_min" value="153" doc="The minimum allowed field value Saturation" />
     <arg name="v_limit_max" value="256" doc="The maximum allowed field value Value" />
-    <arg name="v_limit_min" value="84" doc="The minimum allowed field value Value" />
+    <arg name="v_limit_min" value="238" doc="The minimum allowed field value Value" />
     <arg name="debug_view" value="false" />
   </include>
 
@@ -49,7 +49,7 @@
     <remap from="~input" to="right_hsv_color_filter/image" />
     <rosparam>
       method: 0
-      size: 5
+      size: 3
     </rosparam>
   </node>
 
