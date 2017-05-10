@@ -1,8 +1,8 @@
 <launch>
   <arg name="gui" default="true" />
   <arg name="MANAGER" value="color_filter_nodelet_manager" />
-  <arg name="INPUT_LEFT_IMAGE" default="/pointgrey/left/image_color" />
-  <arg name="INPUT_RIGHT_IMAGE" default="/pointgrey/right/image_color" />
+  <arg name="INPUT_LEFT_IMAGE" default="/pointgrey/left/image_rect_color" />
+  <arg name="INPUT_RIGHT_IMAGE" default="/pointgrey/right/image_rect_color" />
   <arg name="INPUT_CAMERA_INFO" default="/camera_remote/rgb/camera_info" />
 
   <node name="$(arg MANAGER)"
@@ -17,7 +17,7 @@
     <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
     <arg name="s_limit_min" value="145" doc="The minimum allowed field value Saturation" />
     <arg name="v_limit_max" value="256" doc="The maximum allowed field value Value" />
-    <arg name="v_limit_min" value="225" doc="The minimum allowed field value Value" />
+    <arg name="v_limit_min" value="102" doc="The minimum allowed field value Value" />
     <arg name="debug_view" value="false" />
   </include>
 
@@ -39,7 +39,7 @@
     <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
     <arg name="s_limit_min" value="153" doc="The minimum allowed field value Saturation" />
     <arg name="v_limit_max" value="256" doc="The maximum allowed field value Value" />
-    <arg name="v_limit_min" value="238" doc="The minimum allowed field value Value" />
+    <arg name="v_limit_min" value="96" doc="The minimum allowed field value Value" />
     <arg name="debug_view" value="false" />
   </include>
 
@@ -51,6 +51,18 @@
       method: 0
       size: 3
     </rosparam>
+  </node>
+  
+  <node name="left_opencv_centroid" pkg="opencv_apps" type="centroid" output="screen">
+    <remap from="image" to="left_erode_mask_image/output" />
+    <!-- param name="use_camera_info" value="$(arg use_camera_info)" /-->
+    <param name="debug_view" value="false" />
+  </node>
+
+  <node name="right_opencv_centroid" pkg="opencv_apps" type="centroid" output="screen">
+    <remap from="image" to="right_erode_mask_image/output" />
+    <!-- param name="use_camera_info" value="$(arg use_camera_info)" /-->
+    <param name="debug_view" value="false" />
   </node>
 
   <group if="$(arg gui)">
