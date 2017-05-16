@@ -53,13 +53,13 @@
     </rosparam>
   </node>
   
-  <node name="left_opencv_centroid" pkg="opencv_apps" type="centroid" output="screen">
+  <node name="left_opencv_centroid" pkg="opencv_apps" type="contour_moments" output="screen">
     <remap from="image" to="left_erode_mask_image/output" />
     <!-- param name="use_camera_info" value="$(arg use_camera_info)" /-->
     <param name="debug_view" value="false" />
   </node>
 
-  <node name="right_opencv_centroid" pkg="opencv_apps" type="centroid" output="screen">
+  <node name="right_opencv_centroid" pkg="opencv_apps" type="contour_moments" output="screen">
     <remap from="image" to="right_erode_mask_image/output" />
     <!-- param name="use_camera_info" value="$(arg use_camera_info)" /-->
     <param name="debug_view" value="false" />
