@@ -52,7 +52,7 @@
       size: 3
     </rosparam>
   </node>
-  
+
   <node name="left_opencv_centroid" pkg="opencv_apps" type="centroid" output="screen">
     <remap from="image" to="left_erode_mask_image/output" />
     <!-- param name="use_camera_info" value="$(arg use_camera_info)" /-->
@@ -65,15 +65,15 @@
     <param name="debug_view" value="false" />
   </node>
 
-  <group if="$(arg gui)">
-    <node name="image_view0"
-          pkg="image_view" type="image_view">
-      <remap from="image" to="left_erode_mask_image/output" />
-    </node>
-    <node name="image_view1"
-          pkg="image_view" type="image_view">
-      <remap from="image" to="right_erode_mask_image/output" />
-    </node>
-  </group>
+  <!-- <group if="$(arg gui)"> -->
+  <!--   <node name="image_view0" -->
+  <!--         pkg="image_view" type="image_view"> -->
+  <!--     <remap from="image" to="left_erode_mask_image/output" /> -->
+  <!--   </node> -->
+  <!--   <node name="image_view1" -->
+  <!--         pkg="image_view" type="image_view"> -->
+  <!--     <remap from="image" to="right_erode_mask_image/output" /> -->
+  <!--   </node> -->
+  <!-- </group> -->
 
 </launch>

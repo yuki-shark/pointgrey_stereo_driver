@@ -23,14 +23,14 @@
     </node>
   </group>
 
-  <group if="$(arg gui)" >
-    <node name="left_image" pkg="image_view" type="image_view" >
-      <remap from="image" to="pointgrey/left/image_color" />
-    </node>
-    <node name="right_image" pkg="image_view" type="image_view" >
-      <remap from="image" to="pointgrey/right/image_color" />
-    </node>
-  </group>
+  <!-- <group if="$(arg gui)" > -->
+  <!--   <node name="left_image" pkg="image_view" type="image_view" > -->
+  <!--     <remap from="image" to="pointgrey/left/image_color" /> -->
+  <!--   </node> -->
+  <!--   <node name="right_image" pkg="image_view" type="image_view" > -->
+  <!--     <remap from="image" to="pointgrey/right/image_color" /> -->
+  <!--   </node> -->
+  <!-- </group> -->
 
   <!-- <node pkg="rviz" type="rviz" name="rviz_stereo" -->
   <!--       args="-d $(find pointgrey_stereo_driver)/config/stereo.rviz" /> -->
