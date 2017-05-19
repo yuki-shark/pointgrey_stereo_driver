@@ -1,0 +1,54 @@
+  <group if="$(arg gui)" >
+    <node name="left_output_image" pkg="image_view" type="image_view" >
+      <remap from="image" to="pointgrey/left_dilate_mask_image/output" />
+    </node>
+    <node name="right_output_image" pkg="image_view" type="image_view" >
+      <remap from="image" to="pointgrey/right_dilate_mask_image/output" />
+    </node>
+    <node name="left_image" pkg="image_view" type="image_view" >
+      <remap from="image" to="pointgrey/left_hsv_color_filter/image" />
+    </node>
+    <node name="right_image" pkg="image_view" type="image_view" >
+      <remap from="image" to="pointgrey/right_hsv_color_filter/image" />
+    </node>
+  </group>
+
+  <node name="left_erode_mask_image"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_perception/ErodeMaskImage $(arg MANAGER)">
+    <remap from="~input" to="pointgrey/left_hsv_color_filter/image" />
+    <rosparam>
+      method: 0
+      size: 5
+    </rosparam>
+  </node>
+
+  <node name="left_dilate_mask_image"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_perception/DilateMaskImage $(arg MANAGER)">
+    <remap from="~input" to="left_erode_mask_image/image" />
+    <rosparam>
+      method: 0
+      size: 5
+    </rosparam>
+  </node>
+
+  <node name="right_erode_mask_image"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_perception/ErodeMaskImage $(arg MANAGER)">
+    <remap from="~input" to="pointgrey/right_hsv_color_filter/image" />
+    <rosparam>
+      method: 0
+      size: 5
+    </rosparam>
+  </node>
+
+  <node name="right_dilate_mask_image"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_perception/DilateMaskImage $(arg MANAGER)">
+    <remap from="~input" to="right_erode_mask_image/image" />
+    <rosparam>
+      method: 0
+      size: 5
+    </rosparam>
+  </node>

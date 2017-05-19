@@ -1,0 +1,27 @@
+<launch>
+  <arg name="gui" default="true" />
+  <arg name="bagfile" default="camera_bagfile" />
+  <param name="/use_sim_time" value="true" />
+
+  <node name="rosbag_play"
+        pkg="rosbag" type="play"
+        args="$(find pointgrey_stereo_driver)/bagfile/$(arg bagfile) --clock --loop" />
+
+  <group ns="pointgrey">
+    <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" >
+      <param name="~approximate_sync" value="true" />
+      <param name="~correlation_window_size" value="25" />
+      <param name="~disparity_range" value="32" />
+    </node>
+  </group>
+
+  <group if="$(arg gui)" >
+    <node name="left_image" pkg="image_view" type="image_view" >
+      <remap from="image" to="pointgrey/left/image_color" />
+    </node>
+    <node name="right_image" pkg="image_view" type="image_view" >
+      <remap from="image" to="pointgrey/right/image_color" />
+    </node>
+  </group>
+
+</launch>
