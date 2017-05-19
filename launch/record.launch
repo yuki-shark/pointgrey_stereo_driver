@@ -1,0 +1,14 @@
+<launch>
+  <arg name="bagfile" default="camera_bagfile.bag"/>
+  <node name="rosbag_record"
+        pkg="rosbag" type="record"
+        args="-O $(arg bagfile)
+              -b 0
+             /pointgrey/left/camera_info
+             /pointgrey/left/image_raw
+             /pointgrey/right/camera_info
+             /pointgrey/right/image_raw
+             "
+        output="screen">
+  </node>
+</launch>
