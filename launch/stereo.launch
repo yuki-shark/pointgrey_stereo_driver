@@ -1,5 +1,5 @@
 <launch>
-  <arg name="gui" default="true" />
+  <arg name="gui" default="false" />
 
   <group ns="pointgrey">
     <include file="$(find pointgrey_camera_driver)/launch/camera.launch">
@@ -12,7 +12,7 @@
       <arg name="camera_serial" value="14160044" />
     </include>
 
-    <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" >
+    <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc">
       <!-- <remap from="left/image_raw" to="/left_camera/camera/image_raw" /> -->
       <!-- <remap from="left/camera_info" to="/left_camera/camera/camera_info" /> -->
       <!-- <remap from="right/image_raw" to="/right_camera/camera/image_raw" /> -->
@@ -23,7 +23,7 @@
     </node>
   </group>
 
-  <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0.150 0.054 0.260 0.5 -0.5 0.5 -0.5 HEAD_LINK1 left 100" />
+  <node pkg="tf" type="static_transform_publisher" name="pointgrey_broadcaster" args="0.150 0.054 0.260 0.5 -0.5 0.5 -0.5 HEAD_LINK1 left 100" />
 
   <group if="$(arg gui)" >
     <node name="left_image" pkg="image_view" type="image_view" >
