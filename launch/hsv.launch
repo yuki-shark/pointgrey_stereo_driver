@@ -1,5 +1,5 @@
 <launch>
-  <arg name="gui" default="true" />
+  <arg name="gui" default="false" />
   <arg name="MANAGER" value="color_filter_nodelet_manager" />
   <arg name="INPUT_LEFT_IMAGE" default="/pointgrey/left/image_rect_color" />
   <arg name="INPUT_RIGHT_IMAGE" default="/pointgrey/right/image_rect_color" />
