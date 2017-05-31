@@ -8,7 +8,7 @@
   <node name="$(arg MANAGER)"
         pkg="nodelet" type="nodelet"
         args="manager" />
-
+  <!--
   <node pkg="jsk_perception" type="polygon_to_mask_image"
         name="polygon_mask" output="screen">
     <remap from="~input" to="polygon_mask_input" />
@@ -20,10 +20,10 @@
     <remap from="~input" to="$(arg INPUT_LEFT_IMAGE)" />
     <remap from="~input/mask" to="/polygon_mask/output" />
   </node>
-
+  -->
   <include file="$(find opencv_apps)/launch/hsv_color_filter.launch" >
     <arg name="node_name" value="left_hsv_color_filter" />
-    <arg name="image" value="/apply_mask_image/output" />
+    <arg name="image" value="$(arg INPUT_LEFT_IMAGE)" />
     <arg name="h_limit_max" value="25" doc="The maximum allowed field value Hue" />
     <arg name="h_limit_min" value="4" doc="The minimum allowed field value Hue" />
     <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
