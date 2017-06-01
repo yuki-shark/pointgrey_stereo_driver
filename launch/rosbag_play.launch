@@ -1,11 +1,11 @@
 <launch>
   <arg name="gui" default="true" />
-  <arg name="bagfile" default="camera_bagfile" />
+  <arg name="bagfile" default="316.bag" />
   <param name="/use_sim_time" value="true" />
 
   <node name="rosbag_play"
         pkg="rosbag" type="play"
-        args="$(find pointgrey_stereo_driver)/bagfile/$(arg bagfile) --clock --loop -r 0.1" />
+        args="$(find pointgrey_stereo_driver)/bagfile/$(arg bagfile) --clock --loop -r 0.3" />
 
   <group ns="pointgrey">
     <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" >
