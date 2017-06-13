@@ -5,7 +5,7 @@
 
   <node name="rosbag_play"
         pkg="rosbag" type="play"
-        args="$(find pointgrey_stereo_driver)/bagfile/$(arg bagfile) --clock --loop -r 0.3" />
+        args="$(find pointgrey_stereo_driver)/bagfile/$(arg bagfile) --clock --loop -r 0.1" />
 
   <group ns="pointgrey">
     <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" >
