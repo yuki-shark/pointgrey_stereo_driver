@@ -1,15 +1,18 @@
 <launch>
   <arg name="gui" default="true" />
+  <arg name="synchronize" default="true" />
 
   <group ns="pointgrey">
     <include file="$(find pointgrey_camera_driver)/launch/camera.launch">
       <arg name="camera_name" value="left" />
       <arg name="camera_serial" value="14160053" />
+      <arg name="synchronize" value="$(arg synchronize)" />
     </include>
 
     <include file="$(find pointgrey_camera_driver)/launch/camera.launch">
       <arg name="camera_name" value="right" />
       <arg name="camera_serial" value="14160044" />
+      <arg name="synchronize" value="$(arg synchronize)" />
     </include>
 
     <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc">
