@@ -12,12 +12,12 @@
   <include file="$(find opencv_apps)/launch/hsv_color_filter.launch" >
     <arg name="node_name" value="left_hsv_color_filter" />
     <arg name="image" value="$(arg INPUT_LEFT_IMAGE)" />
-    <arg name="h_limit_max" value="25" doc="The maximum allowed field value Hue" />
-    <arg name="h_limit_min" value="4" doc="The minimum allowed field value Hue" />
+    <arg name="h_limit_max" value="29" doc="The maximum allowed field value Hue" />
+    <arg name="h_limit_min" value="3" doc="The minimum allowed field value Hue" />
     <arg name="s_limit_max" value="255" doc="The maximum allowed field value Saturation" />
-    <arg name="s_limit_min" value="49" doc="The minimum allowed field value Saturation" />
+    <arg name="s_limit_min" value="126" doc="The minimum allowed field value Saturation" />
     <arg name="v_limit_max" value="256" doc="The maximum allowed field value Value" />
-    <arg name="v_limit_min" value="45" doc="The minimum allowed field value Value" />
+    <arg name="v_limit_min" value="78" doc="The minimum allowed field value Value" />
     <arg name="debug_view" value="false" />
   </include>
 
@@ -43,7 +43,8 @@
 
   <node name="left_opencv_centroid" pkg="opencv_apps" type="contour_moments" output="screen">
     <remap from="image" to="left_dilate_mask_image/output" />
-    <param name="debug_view" value="false" />
+    <param name="debug_view" value="true" />
+    <param name="use_camera_info" value="false" />
   </node>
 
   <include file="$(find opencv_apps)/launch/hsv_color_filter.launch" >
@@ -79,8 +80,9 @@
   </node>
 
   <node name="right_opencv_centroid" pkg="opencv_apps" type="contour_moments" output="screen">
-    <remap from="image" to="right_erode_mask_image/output" />
-    <param name="debug_view" value="false" />
+    <remap from="image" to="right_dilate_mask_image/output" />
+    <param name="debug_view" value="true" />
+    <param name="use_camera_info" value="false" />
   </node>
 
   <group if="$(arg gui)">
@@ -91,7 +93,7 @@
     </node>
     <node name="image_view2"
           pkg="image_view2" type="image_view2">
-      <remap from="image" to="left_erode_mask_image/output" />
+      <remap from="image" to="left_dilate_mask_image/output" />
       <remap from="image_marker" to="left_image/image_marker" />
     </node>
     <node name="image_view_hsv_right"
@@ -101,7 +103,7 @@
     </node>
     <node name="image_view_erode_mask_right"
           pkg="image_view2" type="image_view2">
-      <remap from="image" to="right_erode_mask_image/output" />
+      <remap from="image" to="right_dilate_mask_image/output" />
       <remap from="image_marker" to="right_image/image_marker" />
     </node>
   </group>
