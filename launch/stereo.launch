@@ -26,8 +26,14 @@
     </node>
   </group>
 
+  <!-- camera on the head -->
   <!-- <node pkg="tf" type="static_transform_publisher" name="pointgrey_broadcaster" args="0.090 0.054 0.260 0.5 -0.5 0.5 -0.5 HEAD_LINK1 left 100" /> -->
-  <node pkg="tf" type="static_transform_publisher" name="pointgrey_broadcaster" args="0.125 0.054 0.068 0.5 -0.5 0.5 -0.5 HEAD_LINK1 left 100" />
+
+  <!-- camera on the multisense stage -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="pointgrey_broadcaster" args="0.125 0.054 0.068 0.5 -0.5 0.5 -0.5 HEAD_LINK1 left 100" /> -->
+
+  <!-- camera on the pointgrey stage -->
+  <node pkg="tf" type="static_transform_publisher" name="pointgrey_broadcaster" args="0.1167 0.115 0.0545 0.5 -0.5 0.5 -0.5 HEAD_LINK1 left 100" />
 
   <group if="$(arg gui)" >
     <node name="left_image" pkg="image_view" type="image_view" >
