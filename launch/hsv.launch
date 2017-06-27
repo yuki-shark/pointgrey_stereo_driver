@@ -3,7 +3,7 @@
   <arg name="MANAGER" value="color_filter_nodelet_manager" />
   <arg name="INPUT_LEFT_IMAGE" default="/pointgrey/left/image_rect_color" />
   <arg name="INPUT_RIGHT_IMAGE" default="/pointgrey/right/image_rect_color" />
-  <arg name="INPUT_CAMERA_INFO" default="/camera_remote/rgb/camera_info" />
+  <!-- <arg name="INPUT_CAMERA_INFO" default="/camera_remote/rgb/camera_info" /> -->
 
   <node name="$(arg MANAGER)"
         pkg="nodelet" type="nodelet"
@@ -27,7 +27,7 @@
     <remap from="~input" to="left_hsv_color_filter/image" />
     <rosparam>
       method: 0
-      size: 1
+      size: 3
     </rosparam>
   </node>
 
@@ -37,13 +37,13 @@
     <remap from="~input" to="left_erode_mask_image/output" />
     <rosparam>
       method: 0
-      size: 1
+      size: 3
     </rosparam>
   </node>
 
   <node name="left_opencv_centroid" pkg="opencv_apps" type="contour_moments" output="screen">
     <remap from="image" to="left_dilate_mask_image/output" />
-    <param name="debug_view" value="true" />
+    <param name="debug_view" value="false" />
     <param name="use_camera_info" value="false" />
   </node>
 
@@ -65,7 +65,7 @@
     <remap from="~input" to="right_hsv_color_filter/image" />
     <rosparam>
       method: 0
-      size: 1
+      size: 3
     </rosparam>
   </node>
 
@@ -75,13 +75,13 @@
     <remap from="~input" to="right_erode_mask_image/output" />
     <rosparam>
       method: 0
-      size: 1
+      size: 3
     </rosparam>
   </node>
 
   <node name="right_opencv_centroid" pkg="opencv_apps" type="contour_moments" output="screen">
     <remap from="image" to="right_dilate_mask_image/output" />
-    <param name="debug_view" value="true" />
+    <param name="debug_view" value="false" />
     <param name="use_camera_info" value="false" />
   </node>
 

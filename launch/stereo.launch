@@ -1,6 +1,6 @@
 <launch>
   <arg name="gui" default="true" />
-  <arg name="synchronize" default="true" />
+  <arg name="synchronize" default="false" />
 
   <group ns="pointgrey">
     <include file="$(find pointgrey_camera_driver)/launch/camera.launch">
